@@ -20,7 +20,7 @@
             </el-submenu>
           </el-submenu>
           <el-menu-item index="2">市场</el-menu-item>
-          <el-menu-item index="3">活动分类</el-menu-item>
+          <el-menu-item index="3">活动</el-menu-item>
           <el-menu-item index="4">帮助</el-menu-item>
 
           <div class="input-icon">
@@ -125,10 +125,10 @@
 <!--          标签页-->
           <el-tabs v-model="activeName" type="card" @tab-click="handleClick" style="margin: 4px 40px 4px 40px">
             <el-tab-pane label="最热" name="first">
-              <div class="queses">
+              <div class="queses infinite-list" v-infinite-scroll="load" style="overflow:auto">
 
                 <!--            单个问题-->
-                <div class="ques-one" style="margin:10px 20px 30px 20px">
+                <div class="ques-one infinite-list-item" style="margin:10px 20px 30px 20px">
                   <!--              问题头部（昵称、发布了一条问题-->
                   <div class="ques-header" style="margin-bottom:10px;display: flex">
                     <div width="50px" style="box-sizing: border-box">
@@ -163,7 +163,7 @@
                     </div>
                   </el-card>
                 </div>
-                <div class="ques-one" style="margin:10px 20px 30px 20px">
+                <div class="ques-one infinite-list-item" style="margin:10px 20px 30px 20px">
                   <!--              问题头部（昵称、发布了一条问题-->
                   <div class="ques-header" style="margin-bottom:10px;display: flex">
                     <div width="50px" style="box-sizing: border-box">
