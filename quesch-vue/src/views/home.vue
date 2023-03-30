@@ -2,10 +2,10 @@
   <div class="home" style="background-color: #f1f2f5;">
     <el-row>
       <!--        左-->
-      <el-col :span="10" :offset="5" class="grid-middle">
+      <el-col :span="11" :offset="5" class="grid-middle">
         <!--          头部回答问题-->
         <div class="grid-content">
-          <el-form inline-message :model="quesForm" status-icon :rules="rules" ref="quesForm" style="margin: 20px 50px 10px 50px">
+          <el-form inline-message :model="quesForm" status-icon :rules="rules" ref="quesForm" style="margin: 20px 40px 10px 40px">
             <el-form-item prop="title" style="margin-bottom: 0px">
             <el-input v-model="quesForm.title" placeholder="来问个问题吧！"></el-input>
             </el-form-item>

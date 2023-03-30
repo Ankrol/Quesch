@@ -2,6 +2,7 @@ package com.quesch.service;
 
 import com.quesch.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.quesch.entity.request.UserRequest;
 
 /**
 * @author 77
@@ -9,5 +10,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2023-03-29 10:21:37
 */
 public interface UserService extends IService<User> {
-    public User selectUser(String name);
+
+    public User register(UserRequest userRequest);
+
+    public User login(UserRequest request);
 }

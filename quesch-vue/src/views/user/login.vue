@@ -23,7 +23,7 @@
         </div>
         <div style="color:#808080;margin-top: 10px;position: relative;font-size: 14px">
           <span>忘记密码</span>
-          <span style="float: right">注册</span>
+          <span class="register_btn" @click="register">注册</span>
         </div>
       </el-form>
     </div>
@@ -81,6 +81,9 @@ export default {
           })
         }
       })
+    },
+    register(){
+      this.$router.push('/register')
     }
   }
 }
@@ -121,5 +124,12 @@ export default {
 .social-icon{
   width: 30px;
   height: 30px;
+}
+.register_btn{
+  float: right;
+  cursor:pointer;
+}
+.register_btn:focus{
+  color: #409eff;
 }
 </style>
