@@ -27,7 +27,7 @@
           <span style="position: absolute;color:#C0C4CC;margin-top:14px;margin-left: 20px;z-index:10;">
             <i class="el-icon-search"></i>
           </span>
-            <el-input type="text" v-model="search_content" class="form-control" placeholder="Search…"
+            <el-input type="text" v-model="search_content" class="search form-control" placeholder="Search…"
                       style="max-width: 240px;margin-top:10px;">
             </el-input>
           </div>
@@ -49,11 +49,14 @@ export default {
   name: "layout",
   data(){
     return{
+      activeIndex: '1',
       search_content:"",
     }
   },
   methods:{
-
+    handleSelect(key, keyPath) {
+      console.log(key, keyPath);
+    }
   }
 }
 </script>

@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 
 
 const request = axios.create({
-    baseURL: 'http://localhost:9090/api',
+    baseURL: 'http://localhost:8080',
     timeout:5000,
     // withCredentials:true
     // headers: {"withCredentials":true}
