@@ -4,24 +4,28 @@
       <div>Sign in</div>
     </div>
     <div class="content">
-      <el-card class="box-card" :model="user" ref="loginForm" style="padding:20px">
+      <el-form :model="user" status-icon :rules="rules" ref="user" style="padding:40px 40px 20px 40px;border: 1px solid #EBEEF5;" label-width="100px" class="demo-ruleForm">
         <div style="margin-bottom: 16px">
           <div style="font-size:14px">用户名</div>
-          <el-input v-model="user.username" placeholder="请输入内容" style="padding: 6px 0px 0px 0px"></el-input>
+          <el-form-item prop="username" style="margin-left: -100px">
+            <el-input v-model="user.username" placeholder="请输入用户名" style="padding: 6px 0px 0px 0px"></el-input>
+          </el-form-item>
         </div>
         <div>
           <div style="font-size:14px">密码</div>
-          <el-input v-model="user.password" placeholder="请输入密码" style="padding: 6px 0px 0px 0px" show-password></el-input>
+          <el-form-item prop="password" style="margin-left: -100px">
+            <el-input v-model="user.password" placeholder="请输入密码" style="padding: 6px 0px 0px 0px" show-password></el-input>
+          </el-form-item>
         </div>
         <div style="text-align: center;margin-top: 20px;">
-          <el-button @click="login" style="width: 270px" type="primary">登录
+          <el-button @click="login" style="width: 270px" type="primary">注册
           </el-button>
         </div>
-        <div style="margin-top: 10px;position: relative;font-size: 14px">
+        <div style="color:#808080;margin-top: 10px;position: relative;font-size: 14px">
           <span>忘记密码</span>
           <span style="float: right">注册</span>
         </div>
-      </el-card>
+      </el-form>
     </div>
     <div class="footer" style="margin-top:40px;text-align: center">
         <span style="margin-right: 10px;"><img class="social-icon" alt="" src="../../assets/social/qq.png"></span>
@@ -44,6 +48,16 @@ export default {
       user:{
         username:"",
         password:""
+      },
+      rules: {
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur' },
+          { min: 3, max: 10, message: '用户名至少三个字', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          { min: 6, max: 20, message: '密码至少六位数', trigger: 'blur' }
+        ]
       }
     }
   },

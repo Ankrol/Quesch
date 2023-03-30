@@ -6,7 +6,6 @@
 </template>
 
 <script>
-const appData = require("@/assets/images/emojis.json");
 export default {
   data() {
     return {

@@ -2,11 +2,11 @@
   <div class="home">
     <el-row>
       <!--        左-->
-      <el-col :span="12" :offset="4" class="grid-middle">
+      <el-col :span="10" :offset="5" class="grid-middle">
         <!--          头部回答问题-->
         <div class="grid-content">
           <div style="margin: 20px 50px 10px 50px">
-            <el-input @keyup.enter.native="submitMessage" v-model="content" type="textarea" placeholder="请输入内容" autosize></el-input>
+            <el-input @keyup.enter.native="submitMessage" v-model="content" type="textarea" placeholder="请输入内容" :autosize="{ minRows: 2}"></el-input>
             <el-row >
               <el-popover placement="bottom" width="300" height="500" trigger="click" v-model="emojiShow">
                 <el-button style="margin-top: 6px;" slot="reference">😀</el-button>
@@ -41,7 +41,7 @@
                 <img width="100%" :src="dialogImageUrl" alt="">
               </el-dialog>
               <div class="right-btn">
-                <el-select class="select_ques" v-model="value" placeholder="请选择">
+                <el-select class="select_ques" v-model="selectvalue" placeholder="请选择">
                   <el-option
                       v-for="item in options"
                       :key="item.value"
@@ -60,26 +60,26 @@
         <!--          标签页-->
         <el-tabs v-model="activeName" type="card" @tab-click="handleClick" style="margin: 4px 40px 4px 40px">
           <el-tab-pane label="最热" name="first">
-            <div class="queses infinite-list" v-infinite-scroll="load" style="overflow:auto">
+            <div class="queses infinite-list" style="overflow:auto">
 
               <!--            单个问题-->
-              <div class="ques-one infinite-list-item" style="margin:10px 20px 30px 20px">
+              <div class="ques-one infinite-list-item" style="margin:10px 0px 30px 0px">
                 <!--              问题头部（昵称、发布了一条问题-->
-                <div class="ques-header" style="margin-bottom:10px;display: flex">
-                  <div width="50px" style="box-sizing: border-box">
-                    <el-avatar :size=medium :src="circleUrl"></el-avatar>
-                  </div>
-                  <div style="margin-left: 15px;">
-                    <div style="margin-bottom:10px;height: 10px;font-size: 14px">
-                      root
-                    </div>
-                    <div style="height: 10px;font-size: 12px">
-                      两个小时 前发布了一条问题
-                    </div>
-                  </div>
-                </div>
                 <!--              问题内容主体-->
                 <el-card class="box-card">
+                  <div class="ques-header" style="margin-bottom:10px;display: flex">
+                    <div width="50px" style="box-sizing: border-box">
+                      <el-avatar size="medium" :src="circleUrl"></el-avatar>
+                    </div>
+                    <div style="margin-left: 15px;">
+                      <div style="margin-bottom:10px;height: 10px;font-size: 14px">
+                        root
+                      </div>
+                      <div style="height: 10px;font-size: 12px">
+                        两个小时 前发布了一条问题
+                      </div>
+                    </div>
+                  </div>
                   <div class="text item">
                     <div class="ques-title" style="font-size: 16px">
                       发布的第一条问题
@@ -91,30 +91,30 @@
                       <el-button class="zan_btn" icon="el-icon-my-export" circle></el-button>
                       <el-button icon="el-icon-star-off" circle></el-button>
                       <el-button icon="el-icon-share" circle></el-button>
-                      <el-badge :value="12" class="item" style="float: right;margin-right: 30px;">
+                      <el-badge value="12" class="item" style="float: right;margin-right: 30px;">
                         <el-button size="small" style="border-radius: 20px;width: 64px">评论</el-button>
                       </el-badge>
                     </div>
                   </div>
                 </el-card>
               </div>
-              <div class="ques-one infinite-list-item" style="margin:10px 20px 30px 20px">
+              <div class="ques-one infinite-list-item" style="margin:10px 0px 30px 0px">
                 <!--              问题头部（昵称、发布了一条问题-->
-                <div class="ques-header" style="margin-bottom:10px;display: flex">
-                  <div width="50px" style="box-sizing: border-box">
-                    <el-avatar :size=medium :src="circleUrl"></el-avatar>
-                  </div>
-                  <div style="margin-left: 15px;">
-                    <div style="margin-bottom:10px;height: 10px;font-size: 14px">
-                      root
-                    </div>
-                    <div style="height: 10px;font-size: 12px">
-                      两个小时 前发布了一条问题
-                    </div>
-                  </div>
-                </div>
                 <!--              问题内容主体-->
                 <el-card class="box-card">
+                  <div class="ques-header" style="margin-bottom:10px;display: flex">
+                    <div width="50px" style="box-sizing: border-box">
+                      <el-avatar size="medium" :src="circleUrl"></el-avatar>
+                    </div>
+                    <div style="margin-left: 15px;">
+                      <div style="margin-bottom:10px;height: 10px;font-size: 14px">
+                        root
+                      </div>
+                      <div style="height: 10px;font-size: 12px">
+                        两个小时 前发布了一条问题
+                      </div>
+                    </div>
+                  </div>
                   <div class="text item">
                     <div class="ques-title" style="font-size: 16px">
                       发布的第一条问题
@@ -126,30 +126,30 @@
                       <el-button class="zan_btn" icon="el-icon-my-export" circle></el-button>
                       <el-button icon="el-icon-star-off" circle></el-button>
                       <el-button icon="el-icon-share" circle></el-button>
-                      <el-badge :value="12" class="item" style="float: right;margin-right: 30px;">
+                      <el-badge value="12" class="item" style="float: right;margin-right: 30px;">
                         <el-button size="small" style="border-radius: 20px;width: 64px">评论</el-button>
                       </el-badge>
                     </div>
                   </div>
                 </el-card>
               </div>
-              <div class="ques-one" style="margin:10px 20px 30px 20px">
+              <div class="ques-one infinite-list-item" style="margin:10px 0px 30px 0px">
                 <!--              问题头部（昵称、发布了一条问题-->
-                <div class="ques-header" style="margin-bottom:10px;display: flex">
-                  <div width="50px" style="box-sizing: border-box">
-                    <el-avatar :size=medium :src="circleUrl"></el-avatar>
-                  </div>
-                  <div style="margin-left: 15px;">
-                    <div style="margin-bottom:10px;height: 10px;font-size: 14px">
-                      root
-                    </div>
-                    <div style="height: 10px;font-size: 12px">
-                      两个小时 前发布了一条问题
-                    </div>
-                  </div>
-                </div>
                 <!--              问题内容主体-->
                 <el-card class="box-card">
+                  <div class="ques-header" style="margin-bottom:10px;display: flex">
+                    <div width="50px" style="box-sizing: border-box">
+                      <el-avatar size="medium" :src="circleUrl"></el-avatar>
+                    </div>
+                    <div style="margin-left: 15px;">
+                      <div style="margin-bottom:10px;height: 10px;font-size: 14px">
+                        root
+                      </div>
+                      <div style="height: 10px;font-size: 12px">
+                        两个小时 前发布了一条问题
+                      </div>
+                    </div>
+                  </div>
                   <div class="text item">
                     <div class="ques-title" style="font-size: 16px">
                       发布的第一条问题
@@ -161,112 +161,7 @@
                       <el-button class="zan_btn" icon="el-icon-my-export" circle></el-button>
                       <el-button icon="el-icon-star-off" circle></el-button>
                       <el-button icon="el-icon-share" circle></el-button>
-                      <el-badge :value="12" class="item" style="float: right;margin-right: 30px;">
-                        <el-button size="small" style="border-radius: 20px;width: 64px">评论</el-button>
-                      </el-badge>
-                    </div>
-                  </div>
-                </el-card>
-              </div>
-              <div class="ques-one" style="margin:10px 20px 30px 20px">
-                <!--              问题头部（昵称、发布了一条问题-->
-                <div class="ques-header" style="margin-bottom:10px;display: flex">
-                  <div width="50px" style="box-sizing: border-box">
-                    <el-avatar :size=medium :src="circleUrl"></el-avatar>
-                  </div>
-                  <div style="margin-left: 15px;">
-                    <div style="margin-bottom:10px;height: 10px;font-size: 14px">
-                      root
-                    </div>
-                    <div style="height: 10px;font-size: 12px">
-                      两个小时 前发布了一条问题
-                    </div>
-                  </div>
-                </div>
-                <!--              问题内容主体-->
-                <el-card class="box-card">
-                  <div class="text item">
-                    <div class="ques-title" style="font-size: 16px">
-                      发布的第一条问题
-                    </div>
-                    <div class="ques-content" style="margin:6px 0 6px 0;font-size: 14px">
-                      发布问题的一些内容
-                    </div>
-                    <div class="ques-footer" style="margin-top: 14px;margin-bottom: -6px;">
-                      <el-button class="zan_btn" icon="el-icon-my-export" circle></el-button>
-                      <el-button icon="el-icon-star-off" circle></el-button>
-                      <el-button icon="el-icon-share" circle></el-button>
-                      <el-badge :value="12" class="item" style="float: right;margin-right: 30px;">
-                        <el-button size="small" style="border-radius: 20px;width: 64px">评论</el-button>
-                      </el-badge>
-                    </div>
-                  </div>
-                </el-card>
-              </div>
-              <div class="ques-one" style="margin:10px 20px 30px 20px">
-                <!--              问题头部（昵称、发布了一条问题-->
-                <div class="ques-header" style="margin-bottom:10px;display: flex">
-                  <div width="50px" style="box-sizing: border-box">
-                    <el-avatar :size=medium :src="circleUrl"></el-avatar>
-                  </div>
-                  <div style="margin-left: 15px;">
-                    <div style="margin-bottom:10px;height: 10px;font-size: 14px">
-                      root
-                    </div>
-                    <div style="height: 10px;font-size: 12px">
-                      两个小时 前发布了一条问题
-                    </div>
-                  </div>
-                </div>
-                <!--              问题内容主体-->
-                <el-card class="box-card">
-                  <div class="text item">
-                    <div class="ques-title" style="font-size: 16px">
-                      发布的第一条问题
-                    </div>
-                    <div class="ques-content" style="margin:6px 0 6px 0;font-size: 14px">
-                      发布问题的一些内容
-                    </div>
-                    <div class="ques-footer" style="margin-top: 14px;margin-bottom: -6px;">
-                      <el-button class="zan_btn" icon="el-icon-my-export" circle></el-button>
-                      <el-button icon="el-icon-star-off" circle></el-button>
-                      <el-button icon="el-icon-share" circle></el-button>
-                      <el-badge :value="12" class="item" style="float: right;margin-right: 30px;">
-                        <el-button size="small" style="border-radius: 20px;width: 64px">评论</el-button>
-                      </el-badge>
-                    </div>
-                  </div>
-                </el-card>
-              </div>
-              <div class="ques-one" style="margin:10px 20px 30px 20px">
-                <!--              问题头部（昵称、发布了一条问题-->
-                <div class="ques-header" style="margin-bottom:10px;display: flex">
-                  <div width="50px" style="box-sizing: border-box">
-                    <el-avatar :size=medium :src="circleUrl"></el-avatar>
-                  </div>
-                  <div style="margin-left: 15px;">
-                    <div style="margin-bottom:10px;height: 10px;font-size: 14px">
-                      root
-                    </div>
-                    <div style="height: 10px;font-size: 12px">
-                      两个小时 前发布了一条问题
-                    </div>
-                  </div>
-                </div>
-                <!--              问题内容主体-->
-                <el-card class="box-card">
-                  <div class="text item">
-                    <div class="ques-title" style="font-size: 16px">
-                      发布的第一条问题
-                    </div>
-                    <div class="ques-content" style="margin:6px 0 6px 0;font-size: 14px">
-                      发布问题的一些内容
-                    </div>
-                    <div class="ques-footer" style="margin-top: 14px;margin-bottom: -6px;">
-                      <el-button class="zan_btn" icon="el-icon-my-export" circle></el-button>
-                      <el-button icon="el-icon-star-off" circle></el-button>
-                      <el-button icon="el-icon-share" circle></el-button>
-                      <el-badge :value="12" class="item" style="float: right;margin-right: 30px;">
+                      <el-badge value="12" class="item" style="float: right;margin-right: 30px;">
                         <el-button size="small" style="border-radius: 20px;width: 64px">评论</el-button>
                       </el-badge>
                     </div>
@@ -280,23 +175,23 @@
           <el-tab-pane label="最新" name="second">
             <div class="queses">
               <!--            单个问题-->
-              <div class="ques-one" style="margin:10px 20px 30px 20px">
+              <div class="ques-one infinite-list-item" style="margin:10px 0px 30px 0px">
                 <!--              问题头部（昵称、发布了一条问题-->
-                <div class="ques-header" style="margin-bottom:10px;display: flex">
-                  <div width="50px" style="box-sizing: border-box">
-                    <el-avatar :size=medium :src="circleUrl"></el-avatar>
-                  </div>
-                  <div style="margin-left: 15px;">
-                    <div style="margin-bottom:10px;height: 10px;font-size: 14px">
-                      root
-                    </div>
-                    <div style="height: 10px;font-size: 12px">
-                      两个小时 前发布了一条问题
-                    </div>
-                  </div>
-                </div>
                 <!--              问题内容主体-->
                 <el-card class="box-card">
+                  <div class="ques-header" style="margin-bottom:10px;display: flex">
+                    <div width="50px" style="box-sizing: border-box">
+                      <el-avatar size="medium" :src="circleUrl"></el-avatar>
+                    </div>
+                    <div style="margin-left: 15px;">
+                      <div style="margin-bottom:10px;height: 10px;font-size: 14px">
+                        root
+                      </div>
+                      <div style="height: 10px;font-size: 12px">
+                        两个小时 前发布了一条问题
+                      </div>
+                    </div>
+                  </div>
                   <div class="text item">
                     <div class="ques-title" style="font-size: 16px">
                       发布的第一条问题
@@ -308,30 +203,30 @@
                       <el-button class="zan_btn" icon="el-icon-my-export" circle></el-button>
                       <el-button icon="el-icon-star-off" circle></el-button>
                       <el-button icon="el-icon-share" circle></el-button>
-                      <el-badge :value="12" class="item" style="float: right;margin-right: 30px;">
+                      <el-badge value="12" class="item" style="float: right;margin-right: 30px;">
                         <el-button size="small" style="border-radius: 20px;width: 64px">评论</el-button>
                       </el-badge>
                     </div>
                   </div>
                 </el-card>
               </div>
-              <div class="ques-one" style="margin:10px 20px 30px 20px">
+              <div class="ques-one infinite-list-item" style="margin:10px 0px 30px 0px">
                 <!--              问题头部（昵称、发布了一条问题-->
-                <div class="ques-header" style="margin-bottom:10px;display: flex">
-                  <div width="50px" style="box-sizing: border-box">
-                    <el-avatar :size=medium :src="circleUrl"></el-avatar>
-                  </div>
-                  <div style="margin-left: 15px;">
-                    <div style="margin-bottom:10px;height: 10px;font-size: 14px">
-                      root
-                    </div>
-                    <div style="height: 10px;font-size: 12px">
-                      两个小时 前发布了一条问题
-                    </div>
-                  </div>
-                </div>
                 <!--              问题内容主体-->
                 <el-card class="box-card">
+                  <div class="ques-header" style="margin-bottom:10px;display: flex">
+                    <div width="50px" style="box-sizing: border-box">
+                      <el-avatar size="medium" :src="circleUrl"></el-avatar>
+                    </div>
+                    <div style="margin-left: 15px;">
+                      <div style="margin-bottom:10px;height: 10px;font-size: 14px">
+                        root
+                      </div>
+                      <div style="height: 10px;font-size: 12px">
+                        两个小时 前发布了一条问题
+                      </div>
+                    </div>
+                  </div>
                   <div class="text item">
                     <div class="ques-title" style="font-size: 16px">
                       发布的第一条问题
@@ -343,30 +238,30 @@
                       <el-button class="zan_btn" icon="el-icon-my-export" circle></el-button>
                       <el-button icon="el-icon-star-off" circle></el-button>
                       <el-button icon="el-icon-share" circle></el-button>
-                      <el-badge :value="12" class="item" style="float: right;margin-right: 30px;">
+                      <el-badge value="12" class="item" style="float: right;margin-right: 30px;">
                         <el-button size="small" style="border-radius: 20px;width: 64px">评论</el-button>
                       </el-badge>
                     </div>
                   </div>
                 </el-card>
               </div>
-              <div class="ques-one" style="margin:10px 20px 30px 20px">
+              <div class="ques-one infinite-list-item" style="margin:10px 0px 30px 0px">
                 <!--              问题头部（昵称、发布了一条问题-->
-                <div class="ques-header" style="margin-bottom:10px;display: flex">
-                  <div width="50px" style="box-sizing: border-box">
-                    <el-avatar :size=medium :src="circleUrl"></el-avatar>
-                  </div>
-                  <div style="margin-left: 15px;">
-                    <div style="margin-bottom:10px;height: 10px;font-size: 14px">
-                      root
-                    </div>
-                    <div style="height: 10px;font-size: 12px">
-                      两个小时 前发布了一条问题
-                    </div>
-                  </div>
-                </div>
                 <!--              问题内容主体-->
                 <el-card class="box-card">
+                  <div class="ques-header" style="margin-bottom:10px;display: flex">
+                    <div width="50px" style="box-sizing: border-box">
+                      <el-avatar size="medium" :src="circleUrl"></el-avatar>
+                    </div>
+                    <div style="margin-left: 15px;">
+                      <div style="margin-bottom:10px;height: 10px;font-size: 14px">
+                        root
+                      </div>
+                      <div style="height: 10px;font-size: 12px">
+                        两个小时 前发布了一条问题
+                      </div>
+                    </div>
+                  </div>
                   <div class="text item">
                     <div class="ques-title" style="font-size: 16px">
                       发布的第一条问题
@@ -378,48 +273,14 @@
                       <el-button class="zan_btn" icon="el-icon-my-export" circle></el-button>
                       <el-button icon="el-icon-star-off" circle></el-button>
                       <el-button icon="el-icon-share" circle></el-button>
-                      <el-badge :value="12" class="item" style="float: right;margin-right: 30px;">
+                      <el-badge value="12" class="item" style="float: right;margin-right: 30px;">
                         <el-button size="small" style="border-radius: 20px;width: 64px">评论</el-button>
                       </el-badge>
                     </div>
                   </div>
                 </el-card>
               </div>
-              <div class="ques-one" style="margin:10px 20px 30px 20px">
-                <!--              问题头部（昵称、发布了一条问题-->
-                <div class="ques-header" style="margin-bottom:10px;display: flex">
-                  <div width="50px" style="box-sizing: border-box">
-                    <el-avatar :size=medium :src="circleUrl"></el-avatar>
-                  </div>
-                  <div style="margin-left: 15px;">
-                    <div style="margin-bottom:10px;height: 10px;font-size: 14px">
-                      root
-                    </div>
-                    <div style="height: 10px;font-size: 12px">
-                      两个小时 前发布了一条问题
-                    </div>
-                  </div>
-                </div>
-                <!--              问题内容主体-->
-                <el-card class="box-card">
-                  <div class="text item">
-                    <div class="ques-title" style="font-size: 16px">
-                      发布的第一条问题
-                    </div>
-                    <div class="ques-content" style="margin:6px 0 6px 0;font-size: 14px">
-                      发布问题的一些内容
-                    </div>
-                    <div class="ques-footer" style="margin-top: 14px;margin-bottom: -6px;">
-                      <el-button class="zan_btn" icon="el-icon-my-export" circle></el-button>
-                      <el-button icon="el-icon-star-off" circle></el-button>
-                      <el-button icon="el-icon-share" circle></el-button>
-                      <el-badge :value="12" class="item" style="float: right;margin-right: 30px;">
-                        <el-button size="small" style="border-radius: 20px;width: 64px">评论</el-button>
-                      </el-badge>
-                    </div>
-                  </div>
-                </el-card>
-              </div>
+
 
             </div>
           </el-tab-pane>
@@ -504,12 +365,14 @@
 </template>
 
 <script>
+const appData = require("@/assets/images/emojis.json");
 
 export default {
   name: 'home',
   data(){
     return{
-      content: "\n",
+      selectvalue:'',
+      content: "",
       emojiShow: false,
       faceList: [],
       getBrowString: "",
@@ -517,13 +380,27 @@ export default {
       dialogVisible: false,
       disabled: false,
       checked: true,
-      activeName: 'first'
+      activeName: 'first',
+      circleUrl: "https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png",
+      options: [{
+          value: '选项1',
+          label: '学校通知'
+        },
+        {
+          value:'选项2',
+          label: '杂事'
+        }
+      ]
     }
   },
   created() {
     this.loadEmojis();
   },
   methods:{
+    handleOpen(){},
+    handleClose(){
+
+    },
     handleClick(tab, event) {
       console.log(tab, event);
     },
@@ -680,7 +557,7 @@ export default {
   -webkit-box-shadow:none;
 }
 .ques-header~.el-card{
-  box-shadow: 0 3px 3px 1px rgba(27,31,36,0.04) !important;
+  box-shadow: 0 20px 2px 1px rgba(27,31,36,0.04) !important;
   -webkit-box-shadow: 0 3px 3px 1px rgba(27,31,36,0.04) !important;
   border-color: #d0d7de;
   border-radius: 6px;
