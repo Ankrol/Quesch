@@ -24,6 +24,11 @@ const routes = [
         path:'/register',
         name:'register',
         component:()=> import('@/views/user/register')
+      },
+      {
+        path:'/404',
+        name:'404',
+        component:()=> import('@/views/404')
       }
     ]
   }

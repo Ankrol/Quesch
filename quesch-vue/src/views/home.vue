@@ -1,13 +1,18 @@
 <template>
-  <div class="home">
+  <div class="home" style="background-color: #f1f2f5;">
     <el-row>
       <!--        左-->
       <el-col :span="10" :offset="5" class="grid-middle">
         <!--          头部回答问题-->
         <div class="grid-content">
-          <div style="margin: 20px 50px 10px 50px">
-            <el-input @keyup.enter.native="submitMessage" v-model="content" type="textarea" placeholder="请输入内容" :autosize="{ minRows: 2}"></el-input>
-            <el-row >
+          <el-form inline-message :model="quesForm" status-icon :rules="rules" ref="quesForm" style="margin: 20px 50px 10px 50px">
+            <el-form-item prop="title" style="margin-bottom: 0px">
+            <el-input v-model="quesForm.title" placeholder="来问个问题吧！"></el-input>
+            </el-form-item>
+            <el-form-item prop="content" style="margin-bottom: -2px">
+            <el-input @keyup.enter.native="submitMessage" v-model="quesForm.content" type="textarea" placeholder="请输入问题描述" :autosize="{ minRows: 2}"></el-input>
+            </el-form-item>
+            <el-row>
               <el-popover placement="bottom" width="300" height="500" trigger="click" v-model="emojiShow">
                 <el-button style="margin-top: 6px;" slot="reference">😀</el-button>
                 <div class="browBox" >
@@ -50,12 +55,12 @@
                   </el-option>
                 </el-select>
                 <el-checkbox class="anony-check" v-model="checked">是否匿名</el-checkbox>
-                <el-button class="submit-btn" type="primary" @click="submitMessage" :disabled="content == ''">
+                <el-button class="submit-btn" type="primary" @click="submitMessage" :disabled="quesForm.title == '' || quesForm.title.length<5">
                   发送
                 </el-button>
               </div>
             </el-row>
-          </div>
+          </el-form>
         </div>
         <!--          标签页-->
         <el-tabs v-model="activeName" type="card" @tab-click="handleClick" style="margin: 4px 40px 4px 40px">
@@ -371,8 +376,16 @@ export default {
   name: 'home',
   data(){
     return{
+      rules: {
+        title: [
+          { min: 5, max: 20, message: '标题至少五个字', trigger: 'blur' }
+        ]
+      },
+      quesForm:{
+        title:"",
+        content:""
+      },
       selectvalue:'',
-      content: "",
       emojiShow: false,
       faceList: [],
       getBrowString: "",
@@ -393,9 +406,6 @@ export default {
       ]
     }
   },
-  created() {
-    this.loadEmojis();
-  },
   methods:{
     handleOpen(){},
     handleClose(){
@@ -415,7 +425,7 @@ export default {
       for(let i in this.faceList){
         if(index == i){
           this.getBrowString = this.faceList[index];
-          this.content += this.getBrowString;
+          this.quesForm.content += this.getBrowString;
         }
       }
       this.emojiShow = false;

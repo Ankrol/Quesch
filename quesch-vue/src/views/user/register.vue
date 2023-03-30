@@ -1,19 +1,19 @@
 <template>
   <div class="all">
     <div class="header">
-      <div>Sign in</div>
+      <div>Sign up</div>
     </div>
     <div class="content">
-      <el-form :model="user" status-icon :rules="rules" ref="user" style="padding:40px 40px 20px 40px;border: 1px solid #EBEEF5;" label-width="100px" class="demo-ruleForm">
+      <el-form :model="user" status-icon :rules="rules" ref="registerForm" style="padding:40px 40px 20px 40px;border: 1px solid #EBEEF5;">
         <div style="margin-bottom: 16px">
           <div style="font-size:14px">用户名</div>
-          <el-form-item prop="username" style="margin-left: -100px">
+          <el-form-item prop="username">
           <el-input v-model="user.username" placeholder="请输入用户名" style="padding: 6px 0px 0px 0px"></el-input>
           </el-form-item>
         </div>
         <div>
           <div style="font-size:14px">密码</div>
-          <el-form-item prop="password" style="margin-left: -100px">
+          <el-form-item prop="password">
           <el-input v-model="user.password" placeholder="请输入密码" style="padding: 6px 0px 0px 0px" show-password></el-input>
           </el-form-item>
         </div>
@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import router from "@/router";
 import request from "@/utils/request";
+import Cookies from "js-cookie";
 export default {
   name: "register",
   data(){
@@ -63,14 +63,24 @@ export default {
   },
   methods:{
     login(){
-      request.post('/user/register',this.user).then(res=>{
-        if(res.code === '200'){
-          this.$message.success('注册成功')
-        }else{
-          this.$message.error(res.msg)
+      this.$refs['registerForm'].validate((valid)=>{
+        if(valid){
+          request.post('/user/register',this.user).then(res=>{
+            if(res.code === '200'){
+              this.$message.success('注册成功')
+              this.$router.push('/')
+              if (res.data){
+                Cookies.set('user',JSON.stringify(res.data))
+              }
+            }else{
+              this.$message.error(res.msg)
+            }
+          })
         }
       })
     }
+  },
+  created() {
   }
 }
 </script>

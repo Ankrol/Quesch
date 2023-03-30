@@ -12,9 +12,9 @@ const request = axios.create({
 
 request.interceptors.request.use(config =>{
     config.headers['Content-Type']='application/json;charset=utf-8';
-    const admin = Cookies.get('admin')
-    if(admin){
-        config.headers['token'] = JSON.parse(admin).token
+    const user = Cookies.get('user')
+    if(user){
+        config.headers['token'] = JSON.parse(user).token
     }
     return config
     },error => {

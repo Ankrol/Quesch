@@ -34,28 +34,56 @@
 
         </el-menu>
       </div>
-      <div style="position:absolute;top:0;right: 0;margin-right: 60px;line-height: 50px">
-        <el-button type="text" style="color: white;font-size:13px;">登录/注册</el-button>
+      <div style="position:absolute;top:0;right: 0;margin-right: 80px;line-height: 50px">
+        <el-button @click="login" v-if="!user.username" type="text" style="color: white;font-size:13px;">登录/注册</el-button>
+        <el-dropdown v-if="user.username" style="color: white">
+          <span class="el-dropdown-link" style="display:flex;cursor: pointer">
+            <el-avatar size="small" src="" style="margin: auto 8px"></el-avatar>
+            <div>{{ user.username }}</div>
+            <i class="el-icon-arrow-down el-icon--right" style="margin: auto 4px"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>个人空间</el-dropdown-item>
+            <el-dropdown-item dividedx>
+              <div @click="logout">退出登录</div></el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </div>
     </div>
-    <div style="flex: 1;background-color: #f1f2f5;">
+    <div style="flex: 1">
       <router-view/>
     </div>
   </div>
 </template>
 
 <script>
+import Cookies from "js-cookie";
 export default {
   name: "layout",
   data(){
     return{
+      user:Cookies.get('user')?JSON.parse(Cookies.get('user')):{},
       activeIndex: '1',
       search_content:"",
+    }
+  },
+  watch:{
+    $route(to, from){
+      console.log(to.path)
+      location.reload()
     }
   },
   methods:{
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
+    },
+    login(){
+      this.$router.push('/login')
+    },
+    logout(){
+      Cookies.remove('user')
+      this.$message.success("退出成功")
+      this.$router.push('/login')
     }
   }
 }

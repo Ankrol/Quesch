@@ -4,21 +4,21 @@
       <div>Sign in</div>
     </div>
     <div class="content">
-      <el-form :model="user" status-icon :rules="rules" ref="user" style="padding:40px 40px 20px 40px;border: 1px solid #EBEEF5;" label-width="100px" class="demo-ruleForm">
+      <el-form :model="user" status-icon :rules="rules" ref="user" style="padding:40px 40px 20px 40px;border: 1px solid #EBEEF5;">
         <div style="margin-bottom: 16px">
           <div style="font-size:14px">用户名</div>
-          <el-form-item prop="username" style="margin-left: -100px">
+          <el-form-item prop="username">
             <el-input v-model="user.username" placeholder="请输入用户名" style="padding: 6px 0px 0px 0px"></el-input>
           </el-form-item>
         </div>
         <div>
           <div style="font-size:14px">密码</div>
-          <el-form-item prop="password" style="margin-left: -100px">
+          <el-form-item prop="password">
             <el-input v-model="user.password" placeholder="请输入密码" style="padding: 6px 0px 0px 0px" show-password></el-input>
           </el-form-item>
         </div>
         <div style="text-align: center;margin-top: 20px;">
-          <el-button @click="login" style="width: 270px" type="primary">注册
+          <el-button @click="login" style="width: 270px" type="primary">登录
           </el-button>
         </div>
         <div style="color:#808080;margin-top: 10px;position: relative;font-size: 14px">
@@ -41,6 +41,7 @@
 <script>
 import router from "@/router";
 import request from "@/utils/request";
+import Cookies from "js-cookie";
 export default {
   name: "login",
   data(){
@@ -61,13 +62,23 @@ export default {
       }
     }
   },
+
   methods:{
     login(){
-      request.post('/user/login',this.user).then(res=>{
-        if(res.code === '200'){
-          this.$message.success('登录成功')
-        }else{
-          this.$message.error(res.msg)
+      this.$refs['user'].validate((valid)=> {
+        if (valid) {
+          request.post('/user/login', this.user).then(res => {
+            console.log(res)
+            if (res.code === '200') {
+              this.$message.success('登录成功')
+              if (res.data){
+                Cookies.set('user',JSON.stringify(res.data))
+                this.$router.push('/')
+              }
+            } else {
+              this.$message.error(res.msg)
+            }
+          })
         }
       })
     }
