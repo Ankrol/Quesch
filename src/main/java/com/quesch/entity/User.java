@@ -42,6 +42,11 @@ public class User implements Serializable {
      */
     @TableField(value = "phone")
     private String phone;
+    /**
+     *
+     */
+    @TableField(value = "token")
+    private String token;
 
     /**
      * 

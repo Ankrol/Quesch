@@ -11,7 +11,7 @@ export default {
   name: "404",
   methods:{
     toHome(){
-
+      this.$router.push('/')
     }
   }
 }

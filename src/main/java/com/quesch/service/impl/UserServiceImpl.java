@@ -9,6 +9,7 @@ import com.quesch.entity.User;
 import com.quesch.entity.request.UserRequest;
 import com.quesch.service.UserService;
 import com.quesch.mapper.UserMapper;
+import com.quesch.utils.TokenUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -41,12 +42,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
     }
     
     public User login(UserRequest request){
-        System.out.println("登陆密码"+request.getPassword());
         request.setPassword(securePass(request.getPassword()+PASS_SALT));
-        System.out.println("登录密码"+securePass(request.getPassword()));
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("username",request.getUsername());
         User res = userMapper.selectOne(wrapper);
+        String token = TokenUtils.genToken(String.valueOf(res.getId()),res.getPassword());
+        res.setToken(token);
         return res;
     }
 

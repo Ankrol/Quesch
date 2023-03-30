@@ -22,7 +22,7 @@ public class UserController {
     @PostMapping("/login")
     public Result login(@RequestBody UserRequest userRequest){
         User res = userService.login(userRequest);
-        System.out.println(res.getPassword()+".."+userRequest.getPassword());
+        System.out.println("res"+res+"--"+res.getToken());
         if(res.getPassword().equals(userRequest.getPassword())){
             return Result.success(res);
         }

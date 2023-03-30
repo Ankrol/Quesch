@@ -6,7 +6,7 @@
                  background-color="#24292f"
                  text-color="#fff"
                  active-text-color="#409eff">
-          <el-menu-item index="/" style="margin-left: 80px;width: 100px">首页</el-menu-item>
+          <el-menu-item index="home" style="margin-left: 80px;width: 100px">首页</el-menu-item>
           <el-submenu index="1">
             <template slot="title">问题</template>
             <el-menu-item index="1-1">选项1</el-menu-item>
