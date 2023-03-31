@@ -2,11 +2,11 @@
   <div>
     <div class="header" style="top: 0;position:sticky;text-align: center;z-index: 10">
       <div style="position:relative;">
-        <el-menu style="padding-left: 100px" :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect"
+        <el-menu style="padding-left: 100px" :default-active="$route.path==='/'?$route.path:$route.path.substring(1)" :default-opened="['/']" router mode="horizontal" @select="handleSelect"
                  background-color="#24292f"
                  text-color="#fff"
                  active-text-color="#409eff">
-          <el-menu-item index="home" style="margin-left: 80px;width: 100px">首页</el-menu-item>
+          <el-menu-item index="/" style="margin-left: 80px;width: 100px">首页</el-menu-item>
           <el-submenu index="1">
             <template slot="title">问题</template>
             <el-menu-item index="1-1">选项1</el-menu-item>
@@ -43,7 +43,11 @@
             <i class="el-icon-arrow-down el-icon--right" style="margin: auto 4px"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item>个人空间</el-dropdown-item>
+            <el-dropdown-item>
+              <div @click="tospace">
+                个人空间
+              </div>
+            </el-dropdown-item>
             <el-dropdown-item dividedx>
               <div @click="logout">退出登录</div></el-dropdown-item>
           </el-dropdown-menu>
@@ -84,6 +88,9 @@ export default {
       Cookies.remove('user')
       this.$message.success("退出成功")
       this.$router.push('/login')
+    },
+    tospace(){
+      this.$router.push('/space')
     }
   }
 }

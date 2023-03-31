@@ -27,6 +27,11 @@ const routes = [
         component:()=> import('@/views/user/register')
       },
       {
+        path:'/space',
+        name:'space',
+        component:()=> import('@/views/user/space')
+      },
+      {
         path: '*',
         name:'404',
         component:()=> import('@/views/404')
