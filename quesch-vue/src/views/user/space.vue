@@ -21,6 +21,33 @@
                 <div style="margin-top: 6px;">0</div>
               </el-col>
           </el-row>
+          <div><el-button v-if="profile_btn" @click="profile" style="margin-top: 30px">修改个人信息</el-button></div>
+          <div><el-button v-if="secure_btn" @click="secure" style="margin-top: 20px">账号安全</el-button></div>
+
+          <el-form style="margin-top:30px;margin-right:20px" v-if="profile_flag" :rules="rules" ref="form" :model="form" label-width="80px">
+            <el-form-item label="用户名" prop="username">
+              <el-input v-model="form.username"></el-input>
+            </el-form-item>
+            <el-form-item label="密码" prop="password">
+              <el-input v-model="form.password" type="password"></el-input>
+            </el-form-item>
+            <el-button type="primary" @click="saveChange">保存</el-button>
+            <el-button @click="profile_cancel">取消</el-button>
+          </el-form>
+          <div v-if="secure_flag" style="margin-top:30px;margin-right:20px;font-size: 14px">
+          <div style="margin-bottom: 26px;">
+            <div style="margin-bottom: 20px;display: flex;justify-content: center;align-items: center">
+              未绑定QQ账号
+                <img style="margin-left: 15px" width="30" height="30" src="../../assets/social/qq.png" alt="">
+            </div>
+            <div style="display: flex;align-items: center;justify-content: center;">
+              未绑定微信账号
+                <img style="margin-left: 10px" width="30" height="30" src="../../assets/social/vx.png" alt="">
+            </div>
+          </div>
+            <el-button type="primary">保存</el-button>
+            <el-button @click="secure_cancel">取消</el-button>
+          </div>
         </el-card>
       </el-col>
 
@@ -45,7 +72,7 @@
                     </div>
                   </div>
                   <div style="float: right">
-                    <el-button type="primary" plain><i class="el-icon-edit"></i>编辑</el-button>
+                    <el-button type="primary" plain @click="centerDialogVisible = true"><i class="el-icon-edit"></i>编辑</el-button>
                     <el-button><i class="el-icon-delete"></i></el-button>
                   </div>
                 </el-card>
@@ -243,23 +270,107 @@
         </div>
       </el-col>
     </el-row>
+
+
+    <el-dialog
+        title="编辑问题"
+        :visible.sync="centerDialogVisible"
+        width="40%"
+        center>
+      <el-form ref="form" :model="form" label-width="80px" style="margin-right: 50px">
+        <el-form-item label="问题标题">
+          <el-input v-model="form.name"></el-input>
+        </el-form-item>
+        <el-form-item label="问题类别">
+          <el-select v-model="form.region" placeholder="请选择分类">
+            <el-option label="区域一" value="shanghai"></el-option>
+            <el-option label="区域二" value="beijing"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="问题描述">
+          <el-input type="textarea" :autosize="{ minRows: 3}" v-model="form.desc"></el-input>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+    <el-button type="primary" @click="onSubmit">确 定</el-button>
+    <el-button @click="centerDialogVisible = false">取 消</el-button>
+  </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import Cookies from "js-cookie";
+import request from "@/utils/request";
 
 export default {
   name: "space",
   data(){
     return{
+      centerDialogVisible: false,
+      form: {
+        id:'',
+        username:'',
+        password:''
+      },
+      rules: {
+        username: [
+          { min: 3, max: 10, message: '用户名至少三个字', trigger: 'blur' }
+        ],
+        password: [
+          { min: 6, max: 20, message: '密码至少六位数', trigger: 'blur' }
+        ]}
+      ,
+      profile_flag:0,
+      secure_flag:0,
+      profile_btn:1,
+      secure_btn:1,
       user:Cookies.get('user')?JSON.parse(Cookies.get('user')):{},
       activeName: 'first'
     }
   },
-  methods: {
-    handleClick(tab, event) {
-      console.log(tab, event);
+  methods:{
+    onSubmit(){
+      this.centerDialogVisible = false;
+
+    },
+    handleClick() {
+    }
+    ,profile(){
+      this.profile_flag = 1;
+      this.profile_btn = 0;
+      this.secure_flag = 0;
+      this.secure_btn = 1;
+    },
+    secure(){
+      this.secure_flag = 1;
+      this.secure_btn = 0;
+      this.profile_flag = 0;
+      this.profile_btn = 1;
+    },
+    profile_cancel(){
+      this.profile_flag = 0;
+      this.profile_btn = 1;
+    },
+    secure_cancel(){
+      this.secure_flag = 0;
+      this.secure_btn = 1;
+    },
+    saveChange(){
+      this.$refs['form'].validate((valid)=>{
+        if (valid){
+          this.form.id = this.user.id;
+          request.put('/user/changeInfo',this.form).then(res=>{
+            if(res.code === '200'){
+              this.$message.success('修改成功');
+            }else{
+              this.$message.error(res.msg);
+            }
+          })
+        }
+      })
+      this.profile_flag = 0;
+      this.profile_btn = 1;
     }
   }
 }

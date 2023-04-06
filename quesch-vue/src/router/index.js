@@ -32,9 +32,19 @@ const routes = [
         component:()=> import('@/views/user/space')
       },
       {
+        path:'/content',
+        name:'content',
+        component:()=> import('@/views/content')
+      },
+      {
+        path:'/classify',
+        name:'classify',
+        component:()=> import('@/views/ques/ques_layout')
+      },
+      {
         path: '*',
         name:'404',
-        component:()=> import('@/views/404')
+        component:()=> import('@/views/404'),
       }
     ]
   },

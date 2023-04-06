@@ -2,6 +2,7 @@ package com.quesch.service;
 
 import com.quesch.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.quesch.entity.request.ChangeInfoRrequest;
 import com.quesch.entity.request.UserRequest;
 
 /**
@@ -14,4 +15,6 @@ public interface UserService extends IService<User> {
     public User register(UserRequest userRequest);
 
     public User login(UserRequest request);
+
+    public Integer changeInfo(ChangeInfoRrequest changeInfoRrequest);
 }

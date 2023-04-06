@@ -42,3 +42,9 @@ body{
 .el-popover{
     padding: 0;
 }
+.el-collapse{
+    border: none;
+}
+.el-collapse-item__wrap{
+    border: none;
+}
