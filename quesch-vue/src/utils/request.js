@@ -39,4 +39,14 @@ request.interceptors.response.use(
     }
 )
 
+// router.beforeEach((to,from,next)=>{
+//     if (to.path === '/') {
+//             next();
+//         }else if(to.path === '/register') {
+//             next();
+//         }else{
+//
+//     }
+//     }
+// }
 export default request

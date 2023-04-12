@@ -20,7 +20,7 @@ public class User implements Serializable {
     private String id;
 
     /**
-     * 
+     *
      */
     @TableField(value = "name")
     private Integer name;
@@ -50,6 +50,12 @@ public class User implements Serializable {
 
     /**
      * 
+     */
+    @TableField(value = "avatar")
+    private String avatar;
+
+    /**
+     *
      */
     @TableField(value = "create_time",fill = FieldFill.INSERT)
     private Date createTime;

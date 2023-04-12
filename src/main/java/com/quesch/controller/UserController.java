@@ -30,7 +30,7 @@ public class UserController {
 //            res.setPassword(null);
             return Result.success(res);
         }
-        return Result.error("登录失败");
+        return Result.error("用户名或密码错误");
     }
 
     @PostMapping("/register")

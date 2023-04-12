@@ -71,12 +71,12 @@ export default {
       search_content:"",
     }
   },
-  watch:{
-    $route(to, from){
-      console.log(to.path)
-      location.reload()
-    }
-  },
+  // watch:{
+  //   $route(to, from){
+  //     console.log(to.path)
+  //     location.reload()
+  //   }
+  // },
   methods:{
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
@@ -87,7 +87,9 @@ export default {
     logout(){
       Cookies.remove('user')
       this.$message.success("退出成功")
-      this.$router.push('/login')
+      setTimeout(()=>{
+        this.$router.push('/login')
+      },800)
     },
     tospace(){
       this.$router.push('/space')

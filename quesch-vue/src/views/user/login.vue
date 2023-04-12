@@ -73,7 +73,9 @@ export default {
               this.$message.success('登录成功')
               if (res.data){
                 Cookies.set('user',JSON.stringify(res.data))
-                this.$router.push('/')
+                setTimeout(()=>{
+                  this.$router.push('/')
+                },800);
               }
             } else {
               this.$message.error(res.msg)

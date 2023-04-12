@@ -18,12 +18,12 @@
           </el-form-item>
         </div>
         <div style="text-align: center;margin-top: 20px;">
-          <el-button @click="login" style="width: 270px" type="primary">注册
+          <el-button @click="register" style="width: 270px" type="primary">注册
           </el-button>
         </div>
         <div style="color:#808080;margin-top: 10px;position: relative;font-size: 14px">
 <!--          <span>忘记密码</span>-->
-          <span style="float: right">登录</span>
+          <span style="float: right" @click="login">登录</span>
         </div>
       </el-form>
     </div>
@@ -62,7 +62,7 @@ export default {
     }
   },
   methods:{
-    login(){
+    register(){
       this.$refs['registerForm'].validate((valid)=>{
         if(valid){
           request.post('/user/register',this.user).then(res=>{
@@ -78,6 +78,9 @@ export default {
           })
         }
       })
+    },
+    login(){
+      this.$router.push('/login')
     }
   },
   created() {

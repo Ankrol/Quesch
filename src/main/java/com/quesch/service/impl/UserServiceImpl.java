@@ -12,6 +12,7 @@ import com.quesch.exception.ServiceException;
 import com.quesch.service.UserService;
 import com.quesch.mapper.UserMapper;
 import com.quesch.utils.TokenUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -36,13 +37,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 //        查询是否用户名已存在
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("username",userRequest.getUsername());
-        if(userMapper.selectOne(wrapper)==null){
+        if(userMapper.selectOne(wrapper)!=null){
             throw new ServiceException("用户名已存在");
         }
         User user = new User();
         Date date = new Date();
 //        ID自生成
-        user.setId(DateUtil.format(date,"yyyyMMdd")+Math.abs(IdUtil.fastSimpleUUID().hashCode()));
+//        user.setId(DateUtil.format(date,"yyyyMMdd")+Math.abs(IdUtil.fastSimpleUUID().hashCode()));
         user.setUsername(userRequest.getUsername());
         user.setPhone("12345");
         user.setPassword(securePass(userRequest.getPassword()+PASS_SALT));
@@ -55,6 +56,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("username",request.getUsername());
         User res = userMapper.selectOne(wrapper);
+        if (res==null){
+            throw new ServiceException("用户不存在");
+        }
         String token = TokenUtils.genToken(String.valueOf(res.getId()),res.getPassword());
         res.setToken(token);
         return res;
@@ -62,8 +66,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User>
 
     public Integer changeInfo(ChangeInfoRrequest changeInfoRrequest){
         User user = new User();
-        user.setId(changeInfoRrequest.getId());
-        user.setUsername(changeInfoRrequest.getUsername());
+        BeanUtils.copyProperties(changeInfoRrequest,user);
         user.setPassword(securePass(changeInfoRrequest.getPassword()+PASS_SALT));
         int res = userMapper.updateById(user);
         return res;

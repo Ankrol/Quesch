@@ -60,10 +60,12 @@ const router = new VueRouter({
 router.beforeEach((to,form,next)=>{
   if (to.path === '/login')
     next()
+  if (to.path === '/register')
+    next()
   const user = Cookies.get('user')
-  if(!user && to.path!=='/login')
+  if(!user && to.path!=='/login' && to.path!=='/register'){
     return next('/login')
+  }
   next()
 })
-
 export default router
